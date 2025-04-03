@@ -1,0 +1,25 @@
+@use "~/styles/helpers/mixins/index" as *;
+
+.sidebar {
+  position: fixed ;
+  top: var(--layout-header-height);
+  left: 0;
+  width: var(--layout-sidebar-width);
+  height: calc(100vh - var(--layout-header-height) - var(--layout-footer-height));
+  padding: 20px;
+  background: var(--color-gray-100);
+  transition: var(--transition);
+  transform: translateX(calc(0px - var(--layout-sidebar-width)));
+
+  &.header--open {
+    left: 0;
+    width: var(--layout-sidebar-width);
+    transform: translateX(0px);
+  }
+
+  @media (max-width: var(--breakpoint-mobile)) {
+    &.header--open {
+      width: calc(100% - 30px);
+    }
+  }
+}

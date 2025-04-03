@@ -1,0 +1,40 @@
+@use "~/styles/helpers/mixins/index" as *;
+
+.header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  height: var(--layout-header-height);
+  padding: 0 20px;
+  background-color: var(--color-white);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-gray-900);
+  }
+  &__menu {
+    @include space(10px);
+  }
+  .toggle-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    margin-right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #666;
+    }
+
+    .material-icons {
+      font-size: 24px;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+@use "~/styles/helpers/mixins/index" as *;
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: var(--layout-footer-height);
+  padding: 0 20px;
+  background: #333;
+  color: white;
+}

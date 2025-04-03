@@ -1,0 +1,299 @@
+@use "sass:map";
+@use "~/styles/helpers/mixins/index" as *;
+@use "~/styles/components/form" as form;
+
+/* ========================== Variables ========================== */
+$textfield-size: (xs, sm, md, lg);
+
+$textfield-colors: (
+  text: (
+    label: var(--color-gray-900),
+    default: var(--color-gray-900),
+    placeholder: var(--color-gray-400),
+    disabled: var(--color-gray-500),
+    readonly: var(--color-gray-700)
+  ),
+  background: (
+    default: var(--color-white),
+    disabled: var(--color-gray-200),
+    readonly: var(--color-gray-100)
+  ),
+  border: (
+    default: var(--color-gray-600),
+    disabled: var(--color-gray-400),
+    readonly: var(--color-gray-200),
+    focus: var(--color-primary-800)
+  )
+);
+$text-color: map.get($textfield-colors, text);
+$bg-color: map.get($textfield-colors, background);
+$bd-color: map.get($textfield-colors, border);
+
+$textfield-padding: (
+  input: 0 12px 0 16px,
+  textarea: 10px 15px
+);
+
+$textarea-resizeable: false;
+/* ========================== Mixins ========================== */
+
+@function resizerIcon($color: 'c7c7c7') {
+  $url: "data:image/svg+xml,%3Csvg width='9' height='9' viewBox='0 0 9 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 5.49626V1.20337C6 0.757916 5.46143 0.534833 5.14645 0.849815L0.853553 5.14271C0.538571 5.45769 0.761654 5.99626 1.20711 5.99626H5.5C5.77614 5.99626 6 5.7724 6 5.49626Z' fill='%23#{$color}'/%3E%3C/svg%3E%0A";
+  @return $url;
+}
+@mixin scrollbar-color($color) {
+  & {
+    &::-webkit-scrollbar-track {
+      border-left: 6px solid $color;
+      border-right: 6px solid $color;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-left: 6px solid $color;
+      border-right: 6px solid $color;
+      background-clip: padding-box;
+    }
+  }
+}
+
+@mixin textarea-resize($resize: $textarea-resizeable) {
+  @include scrollbar-color(map.get($bg-color, default));
+  & {
+    @if $resize == false {
+      resize: none;
+    } @else {
+      resize: vertical;
+    }
+    &::-webkit-scrollbar-corner {
+      background-color: transparent;
+    }
+    &::-webkit-resizer {
+      width: 11px;
+      height: 11px;
+      right: 0;
+      bottom: 0;
+      background: url(resizerIcon()) no-repeat center center/100%;
+      transform: var(--transition);
+    }
+    &:disabled,
+    &[readonly] {
+      resize: none;
+      &::-webkit-resizer {
+        background-image: url(resizerIcon('eaeaea'));
+      }
+    }
+    &.is-error {
+      &::-webkit-resizer {
+        background-image: url(resizerIcon('ea3535'));
+      }
+    }
+    &::-webkit-scrollbar {
+      width: 16px;
+      height: 16px;
+    }
+    &::-webkit-scrollbar-button {
+      &:vertical {
+        &:start:decrement {
+          display: block;
+          height: 5px;
+        }
+      }
+    }
+  }
+}
+
+@mixin textfield-base($type) {
+  @include typo(var(--font-size-14), 400, map.get($text-color, default));
+
+  &--disabled {
+    background-color: map.get($bg-color, disabled);
+    color: map.get($text-color, disabled);
+    cursor: not-allowed;
+    .n-input__border {
+      border-color: map.get($bd-color, disabled);
+    }
+  }
+  &--readonly {
+    background-color: map.get($bg-color, readonly);
+    border-color: map.get($bd-color, readonly);
+    color: map.get($text-color, readonly);
+    &:focus {
+      background-color: map.get($bg-color, readonly);
+      border-color: map.get($bd-color, readonly);
+      color: map.get($text-color, readonly);
+    }
+  }
+  &__input {
+    @apply flex items-center;
+    @include typo(var(--font-size-14), 400, var(--color-gray-950), $line-height: 20px);
+    position: relative;
+    box-sizing: border-box;
+    padding: map.get($textfield-padding, $type);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+    &:focus-within:not(.is-readonly) {
+      border-color: var(--color-gray-900);
+    }
+    &.is-disabled {
+      background-color: var(--color-gray-10);
+      color: var(--color-gray-350);
+      cursor: not-allowed;
+      &::placeholder {
+        color: var(--color-gray-350);
+      }
+    }
+    &.is-readonly {
+      background-color: var(--color-gray-10);
+      border-color: var(--color-gray-50);
+      color: var(--color-gray-350);
+      &::placeholder {
+        color: var(--color-gray-350);
+      }
+    }
+    &.is-error {
+      border-color: var(--color-red-500);
+    }
+    &.use-prefix {
+      padding-left: 34px;
+    }
+  }
+  #{$type} {
+    @if $type == textarea {
+      & {
+        overflow-y: auto;
+        &.is-resize {
+          @include textarea-resize($resize: true);
+        }
+      }
+    }
+    & {
+      width: 100%;
+      height: 100%;
+      &::placeholder {
+        color: var(--color-gray-350);
+      }
+      &:focus {
+        &:not(&[readonly], &.is-error) {
+          border-color: var(--color-gray-900);
+        }
+      }
+    }
+  }
+  textarea {
+    @include textarea-resize($resize: false);
+    &.is-resize {
+      @include textarea-resize($resize: true);
+    }
+  }
+}
+
+@mixin textfield-size($size: 'md', $labelPosition: 'col') {
+  @each $size in $textfield-size {
+    .size--#{$size} {
+      height: var(--form-height-#{$size});
+    }
+    @if ($labelPosition == 'row') {
+      .textfield__label--#{$size} {
+        margin-right: 10px;
+        line-height: var(--form-height-#{$size});
+      }
+    } @else if ($labelPosition == 'col') {
+      .textfield__label--#{$size} {
+        margin-bottom: 5px;
+        line-height: 19px;
+      }
+    }
+  }
+}
+/* ========================== Styles ========================== */
+.textfield {
+  &__message {
+    @apply flex items-center;
+    @include typo(var(--font-size-14), 500, $line-height: 24px);
+    margin-top: 8px;
+    word-break: break-all;
+    &.is-invalid {
+      color: var(--color-red-500);
+    }
+    &.is-valid {
+      color: var(--color-blue-500);
+    }
+  }
+  &__label {
+    @include form.label-base($required: false);
+    & {
+      margin-bottom: 12px;
+    }
+    &.is-required {
+      @include form.label-base($required: true);
+      & {
+        margin-bottom: 12px;
+      }
+    }
+  }
+  &__prefix-icon {
+    position: relative;
+  }
+  &__suffix-area {
+    @apply flex items-center;
+    @include space(4px);
+  }
+  &__suffix-icon {
+    position: relative;
+  }
+  &__timer {
+    @include typo(var(--font-size-14), 500);
+    width: max-content;
+    &.is-invalid {
+      color: var(--color-red-500);
+    }
+  }
+}
+.cm-input {
+  @include textfield-base(input);
+  @include textfield-size;
+  &.use-icon {
+    .cm-input__input {
+      padding: 0 11px;
+      background-color: var(--color-white);
+      border-radius: var(--radius-sm);
+      input {
+        margin: 0 5px;
+        text-align: center;
+      }
+      &:focus-within:not(.is-readonly) {
+        border-color: var(--color-gray-200);
+      }
+    }
+  }
+  &.is-info {
+    input {
+      @include typo(var(--font-size-14),500,var(--color-gray-950));
+      text-align: center;
+    }
+  }
+}
+.cm-textarea {
+  @include textfield-base(textarea);
+  & {
+    flex-direction: column;
+    width: 100%;
+    min-height: calc(var(--form-height-lg));
+
+    &__input {
+      min-height: calc(var(--form-height-lg));
+      padding: 0;
+      textarea {
+        min-height: calc(var(--form-height-lg) - 2px);
+        height: calc(var(--form-height-lg) - 2px);
+        padding: 10px 15px;
+        box-sizing: border-box;
+      }
+    }
+  }
+  &--row {
+    @include textfield-base(textarea);
+    @include textfield-size($labelPosition: 'row');
+  }
+}

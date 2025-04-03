@@ -1,0 +1,150 @@
+@use "~/styles/helpers/mixins/index" as *;
+
+/* ========================== Variables ========================== */
+/* ========================== Mixins ========================== */
+@mixin label-base($required: false, $size: 'md') {
+  @if ($size == 'md') {
+    @include typo(var(--font-size-16), 500, var(--color-gray-900));
+  } @else if ($size == 'lg') {
+    @include typo(var(--font-size-22), 500, var(--color-gray-950));
+    width: 240px;
+    margin-right: 20px;
+  }
+  display: inline-block;
+  min-width: fit-content;
+  @if ($required == true) {
+    @include after($content: '*') {
+      @include typo(var(--font-size-16), 500, var(--color-red-500));
+      top: 50%;
+      margin-left: 2px;
+      transform: translateY(-50%);
+    }
+  }
+}
+/* ========================== Styles ========================== */
+.form {
+  @apply flex flex-col;
+  @include typo(var(--font-size-15));
+  @include space($y: 40px);
+  & {
+    width: 100%;
+  }
+  &__item {
+    @apply flex flex-1;
+    &.is-col {
+      @apply flex-col;
+      width: 100%;
+      .form__label {
+        & + .form__row,
+        & + .form__group {
+          margin-top: 12px;
+        }
+        &--lg {
+          & + .form__row,
+          & + .form__group {
+            margin-top: 24px;
+          }
+        }
+      }
+    }
+    &.is-row {
+      @apply justify-between items-center  flex-none;
+    }
+    &.is-flexible {
+      flex: 1 1 0% !important;
+      .form__row,
+      .form__group {
+        height: 100%;
+      }
+    }
+  }
+
+  &__label {
+    @include label-base($required: false);
+    label {
+      @include label-base($required: false);
+    }
+    &.is-required {
+      label {
+        @include label-base($required: true);
+      }
+    }
+    &--737 {
+      @include label-base($required: false);
+      color: var(--color-gray-500);
+      &.is-required {
+        @include label-base($required: true);
+      }
+    }
+    &--lg {
+      @include label-base($required: false, $size: 'lg');
+      label {
+        @include label-base($required: false, $size: 'lg');
+      }
+      &.is-required {
+        @include label-base($required: true, $size: 'lg');
+        label {
+          @include label-base($required: true, $size: 'lg');
+        }
+      }
+    }
+  }
+
+  &__group {
+    @apply flex flex-1 flex-col;
+    @include space($y: 12px);
+    & {
+      .form__item--col,
+      .form__item--row {
+        flex: 1 1 0%;
+      }
+      .form__label {
+        + * {
+          @apply flex flex-wrap;
+          word-break: break-all;
+        }
+      }
+    }
+  }
+  &__row {
+    @apply flex;
+    @include space(8px);
+    // 
+    .form__item {
+      max-width: calc(50% - 12px);
+      & + .form__item {
+        margin-left: 24px;
+      }
+    }
+  }
+  &__header {
+    @include space($y: 8px);
+  }
+  &__title {
+    @include typo(var(--font-size-16), 700, $line-height: 24px);
+  }
+  &__subtitle {
+    @include typo(var(--font-size-14), $line-height: 21px);
+  }
+  &__desc {
+    @apply flex flex-col;
+    @include typo(var(--font-size-14), 500, var(--color-gray-350), $line-height: 20px);
+    margin-top: 8px;
+    word-break: break-all;
+    em {
+      @include typo(var(--font-size-14), 400, var(--color-gray-900), $line-height: 21px);
+      @include before(4px, 4px) {
+        top: 8px;
+        left: 9px;
+        background-color: var(--color-gray-900);
+        border-radius: var(--radius-full);
+      }
+      & {
+        padding-left: 21px;
+        & + em {
+          margin-top: 2px;
+        }
+      }
+    }
+  }
+}

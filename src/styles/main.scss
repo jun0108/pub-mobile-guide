@@ -1,0 +1,14 @@
+// @use는 @tailwind 보다 먼저 선언
+// === Base === //
+@use "~/styles/base/fonts";
+@use "~/styles/base/reset";
+// === Layout === //
+@use "~/styles/layout/wrapper";
+@use "~/styles/layout/header";
+@use "~/styles/layout/sidebar";
+@use "~/styles/layout/footer";
+
+// === Components === //
+@use "~/styles/components/form";
+@use "~/styles/components/buttons";
+@use "~/styles/components/textfield";
