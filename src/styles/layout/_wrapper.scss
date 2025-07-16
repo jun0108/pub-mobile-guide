@@ -24,13 +24,14 @@ body,
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  min-width: var(--layout-min-width);
 
   &__content {
     display: flex;
     flex: 1;
     flex-direction: row;
 
-    @media (max-width: 768px) {
+    @media (max-width: var(--breakpoint-tablet)) {
       flex-direction: column;
     }
   }
@@ -44,8 +45,21 @@ body,
     &.header--open {
       padding-left: calc(var(--layout-sidebar-width) + var(--layout-padding));
     }
+    @media (max-width: var(--breakpoint-tablet)) {
+      padding: 12px;
+    }
   }
 }
+
+/* element-ui 컨테이너 커스텀 예시 */
+.el-container {
+  background: transparent;
+  min-height: 100vh;
+  @media (max-width: var(--breakpoint-mobile)) {
+    flex-direction: column !important;
+  }
+}
+
 /* ============= 웹 접근성 대체 텍스트 ============= */
 .hide {
   overflow: hidden;

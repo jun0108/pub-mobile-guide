@@ -1,7 +1,8 @@
 @use "~/styles/helpers/mixins/index" as *;
 
 .sidebar {
-  position: fixed ;
+  position: fixed;
+  z-index: 1;
   top: var(--layout-header-height);
   left: 0;
   width: var(--layout-sidebar-width);
@@ -16,10 +17,45 @@
     width: var(--layout-sidebar-width);
     transform: translateX(0px);
   }
-
+  .sidebar__dimmed {
+    position: fixed;
+    // z-index: 0;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+  }
   @media (max-width: var(--breakpoint-mobile)) {
     &.header--open {
       width: calc(100% - 30px);
+    }
+  }
+  @media (max-width: var(--breakpoint-tablet)) {
+    position: static;
+    width: 100%;
+    height: auto;
+    transform: none;
+    padding: 10px;
+    &.header--open {
+      width: 100%;
+    }
+  }
+
+  /* element-ui 메뉴 커스텀 */
+  .el-menu {
+    background: transparent;
+    border-right: 0;
+    .el-menu-item {
+      color: var(--color-gray-900);
+      &:hover {
+        background: var(--color-primary-50);
+        color: var(--color-primary-800);
+      }
+      &.is-active {
+        background: var(--color-primary-100);
+        color: var(--color-primary-900);
+      }
     }
   }
 }

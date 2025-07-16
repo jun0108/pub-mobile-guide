@@ -61,5 +61,5 @@ export default defineConfig({
 				additionalData: '@use "~/styles/helpers/_variables.scss" as *;'
 			},
 		},
-	  },
+	},
 })

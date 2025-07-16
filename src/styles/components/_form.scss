@@ -148,3 +148,16 @@
     }
   }
 }
+
+/* element-ui form 커스텀 */
+.el-form {
+  background: transparent;
+  .el-form-item__label {
+    color: var(--color-gray-900);
+    font-weight: 500;
+    font-size: var(--font-size-15);
+  }
+  .el-form-item__content {
+    @include space($y: 8px);
+  }
+}
