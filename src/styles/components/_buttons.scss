@@ -132,28 +132,3 @@ $button-line-colors: (
     }
   }
 }
-
-/* element-ui 버튼 커스텀 */
-.el-button {
-  @include btn-base('full', 'primary');
-  @include btn-size('md');
-  &.el-button--primary {
-    background: var(--color-primary-800);
-    color: var(--color-white);
-    border: none;
-    &:hover {
-      background: var(--color-primary-700);
-    }
-    &:disabled {
-      background: var(--color-gray-150);
-      color: var(--color-gray-400);
-    }
-  }
-  &.el-button--text {
-    background: none;
-    color: var(--color-primary-800);
-    &:hover {
-      color: var(--color-primary-700);
-    }
-  }
-}

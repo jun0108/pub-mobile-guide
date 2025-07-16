@@ -121,18 +121,18 @@
     @include space($y: 8px);
   }
   &__title {
-    @include typo(var(--font-size-16), 700, $line-height: 24px);
+    @include typo(var(--font-size-16), 700, $line-height: px-to-rem(24px));
   }
   &__subtitle {
-    @include typo(var(--font-size-14), $line-height: 21px);
+    @include typo(var(--font-size-14), $line-height: px-to-rem(21px));
   }
   &__desc {
     @apply flex flex-col;
-    @include typo(var(--font-size-14), 500, var(--color-gray-350), $line-height: 20px);
+    @include typo(var(--font-size-14), 500, var(--color-gray-350), $line-height: px-to-rem(20px));
     margin-top: 8px;
     word-break: break-all;
     em {
-      @include typo(var(--font-size-14), 400, var(--color-gray-900), $line-height: 21px);
+      @include typo(var(--font-size-14), 400, var(--color-gray-900), $line-height: px-to-rem(21px));
       @include before(4px, 4px) {
         top: 8px;
         left: 9px;
@@ -146,18 +146,5 @@
         }
       }
     }
-  }
-}
-
-/* element-ui form 커스텀 */
-.el-form {
-  background: transparent;
-  .el-form-item__label {
-    color: var(--color-gray-900);
-    font-weight: 500;
-    font-size: var(--font-size-15);
-  }
-  .el-form-item__content {
-    @include space($y: 8px);
   }
 }

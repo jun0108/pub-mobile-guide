@@ -1,3 +1,23 @@
+@use "sass:math";
+@use "sass:meta";
+
+// px to rem converter function (base: 14px)
+@function px-to-rem($px-value, $base-font-size: 14px) {
+  @if meta.type-of($px-value) == number and math.unit($px-value) == px {
+    @return math.div($px-value, $base-font-size) * 1rem;
+  }
+  @return $px-value;
+}
+
+// Convert CSS variable to rem if it contains px value
+@function convert-var-to-rem($var-value) {
+  // CSS variables are passed as-is, but we'll convert direct px values
+  @if meta.type-of($var-value) == number and math.unit($var-value) == px {
+    @return px-to-rem($var-value);
+  }
+  @return $var-value;
+}
+
 @mixin truncate {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -13,7 +33,7 @@
   
   @mixin typo($size: var(--font-size-16), $weight: 400, $color: var(--color-gray-950), $line-height: null, $font-family: null) {
     font-family: if($font-family == null, null, $font-family);
-    line-height: if($line-height == null, null, $line-height);
+    line-height: if($line-height == null, null, convert-var-to-rem($line-height));
     font-size: $size;
     font-weight: $weight;
     color: $color;

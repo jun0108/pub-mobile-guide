@@ -1,8 +1,6 @@
 <script setup lang="ts">
 const exampleLinks = reactive([
   { name: '버튼', path: 'button' },
-  { name: '코드 비교', path: 'code-compare' },
-  { name: '테이블', path: 'table' },
 ])
 </script>
 

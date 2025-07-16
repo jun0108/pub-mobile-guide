@@ -41,21 +41,4 @@
       width: 100%;
     }
   }
-
-  /* element-ui 메뉴 커스텀 */
-  .el-menu {
-    background: transparent;
-    border-right: 0;
-    .el-menu-item {
-      color: var(--color-gray-900);
-      &:hover {
-        background: var(--color-primary-50);
-        color: var(--color-primary-800);
-      }
-      &.is-active {
-        background: var(--color-primary-100);
-        color: var(--color-primary-900);
-      }
-    }
-  }
 }
