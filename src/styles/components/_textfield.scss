@@ -36,7 +36,6 @@ $textfield-padding: (
 
 $textarea-resizeable: false;
 /* ========================== Mixins ========================== */
-
 @function resizerIcon($color: 'c7c7c7') {
   $url: "data:image/svg+xml,%3Csvg width='9' height='9' viewBox='0 0 9 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 5.49626V1.20337C6 0.757916 5.46143 0.534833 5.14645 0.849815L0.853553 5.14271C0.538571 5.45769 0.761654 5.99626 1.20711 5.99626H5.5C5.77614 5.99626 6 5.7724 6 5.49626Z' fill='%23#{$color}'/%3E%3C/svg%3E%0A";
   @return $url;
@@ -295,5 +294,42 @@ $textarea-resizeable: false;
   &--row {
     @include textfield-base(textarea);
     @include textfield-size($labelPosition: 'row');
+  }
+}
+
+.el-input {
+  &.is-focus {
+    .el-input__wrapper {
+      box-shadow: 0 0 0 2px rgba(59, 105, 178, 0.15) !important;
+    }
+  }
+  &.is-disabled {
+    .el-input__wrapper {
+      background-color: var(--color-primary-250) !important;
+      box-shadow: none !important;
+    }
+  }
+  &.is-readonly {
+    .el-input__wrapper {
+      &:focus-within,
+      &:focus {
+        box-shadow: none !important;
+      }
+    }
+  }
+  &--sm {
+    .el-input__wrapper {
+      height: var(--form-height-sm);
+    }
+  }
+  &--md {
+    .el-input__wrapper {
+      height: var(--form-height-md);
+    }
+  }
+  &--lg {
+    .el-input__wrapper {
+      height: var(--form-height-lg);
+    }
   }
 }

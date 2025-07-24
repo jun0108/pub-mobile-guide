@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const exampleLinks = reactive([
-  { name: '버튼', path: 'button' },
+  { name: '버튼', path: 'Button' },
+  { name: '인풋', path: 'Input' },
 ])
 </script>
 
