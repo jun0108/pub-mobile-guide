@@ -1,10 +1,9 @@
 @use "../helpers/mixins/index" as *;
 
 .header {
+  @apply flex items-center;
   position: sticky;
   top: 0;
-  display: flex;
-  align-items: center;
   height: var(--layout-header-height);
   padding: 0 20px;
   background-color: var(--color-white);
@@ -12,20 +11,20 @@
   &__title {
     font-size: 1.5rem;
     font-weight: 600;
+    line-height: 44px;
     color: var(--color-gray-900);
+    text-align: center;
   }
   &__menu {
     @include space(10px);
   }
   .toggle-button {
+    @apply flex items-center justify-center;
     background: none;
     border: none;
     cursor: pointer;
     padding: 0.5rem;
     margin-right: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     color: #333;
     transition: color 0.2s;
 
@@ -36,6 +35,11 @@
     .material-icons {
       font-size: px-to-rem(24px);
     }
+  }
+
+  &__theme-switch {
+    @apply flex items-center;
+    margin-left: auto;
   }
 
   @media (max-width: var(--breakpoint-tablet)) {

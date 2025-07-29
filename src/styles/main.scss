@@ -1,5 +1,4 @@
 // @use rules must be written before any other rules
-@use "tailwindcss";
 
 // === Base === //
 @use "~/styles/base/fonts";
@@ -14,3 +13,7 @@
 @use "~/styles/components/form";
 @use "~/styles/components/buttons";
 @use "~/styles/components/textfield";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

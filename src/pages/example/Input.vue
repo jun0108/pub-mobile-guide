@@ -19,7 +19,7 @@ const inputValue = ref('')
     </div>
     <div class="input-demo__group">
       <label>사이즈별 Input</label>
-      <div style="display: flex; gap: 16px; align-items: flex-end;">
+      <div class="flex gap-4">
         <el-input v-model="inputValue" placeholder="Small" class="el-input--sm" style="width: 180px;" />
         <el-input v-model="inputValue" placeholder="Medium" class="el-input--md" style="width: 180px;" />
         <el-input v-model="inputValue" placeholder="Large" class="el-input--lg" style="width: 180px;" />
