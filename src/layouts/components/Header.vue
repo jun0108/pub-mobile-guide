@@ -18,6 +18,7 @@ function toggleTheme(val: boolean) {
         {{ layoutStore.isSidebarOpen ? 'menu_open' : 'menu' }}
       </span>
     </button>
+    <Icon name="test" alt="홈 아이콘" width="24" height="24" />
     <h1 class="header__title">모바일 가이드</h1>
     <el-switch
       v-model="isDark"
@@ -28,6 +29,12 @@ function toggleTheme(val: boolean) {
   </header>
 </template>
 
-<style lang="scss" scoped>
-
+<style lang="scss" >
+.icon {
+  &:hover {
+    path {
+      stroke: var(--color-primary-900);
+    }
+  }
+}
 </style>

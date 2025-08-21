@@ -6,6 +6,7 @@ import VueRouter from 'unplugin-vue-router/vite'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
 import vue from '@vitejs/plugin-vue'
 import type { ComponentResolver } from 'unplugin-vue-components'
+import svgLoader from 'vite-svg-loader'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -53,6 +54,7 @@ export default defineConfig({
 				} as ComponentResolver
 			]
 		}),
+	svgLoader(),
 	],
   css: {
 		preprocessorOptions: {

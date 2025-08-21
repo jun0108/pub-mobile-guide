@@ -296,8 +296,28 @@ $textarea-resizeable: false;
     @include textfield-size($labelPosition: 'row');
   }
 }
-
 .el-input {
+  min-width: 180px;
+
+  .el-input__wrapper {
+    // box-shadow로 border 효과 제어
+    box-shadow: 0 0 0 1px var(--color-gray-400);
+    font-size: 14px;
+    color: var(--color-gray-900);
+    background-color: var(--color-white);
+    transition: box-shadow 0.2s;
+
+    &::placeholder,
+    input::placeholder {
+      color: var(--color-gray-250);
+      opacity: 1;
+    }
+
+    &:hover {
+      box-shadow: 0 0 0 1.5px var(--color-gray-700);
+    }
+  }
+
   &.is-focus {
     .el-input__wrapper {
       box-shadow: 0 0 0 2px rgba(59, 105, 178, 0.15) !important;
@@ -305,15 +325,29 @@ $textarea-resizeable: false;
   }
   &.is-disabled {
     .el-input__wrapper {
-      background-color: var(--color-primary-250) !important;
+      background-color: var(--color-gray-400) !important;
       box-shadow: none !important;
+      color: var(--color-gray-900);
+      cursor: not-allowed;
+      &::placeholder,
+      input::placeholder {
+        color: var(--color-gray-250);
+        opacity: 1;
+      }
     }
   }
   &.is-readonly {
     .el-input__wrapper {
+      background-color: var(--color-white);
+      color: var(--color-gray-900);
+      &::placeholder,
+      input::placeholder {
+        color: var(--color-gray-250);
+        opacity: 1;
+      }
       &:focus-within,
       &:focus {
-        box-shadow: none !important;
+        box-shadow: 0 0 0 1px var(--color-gray-400) !important;
       }
     }
   }
